@@ -20,7 +20,6 @@ const event = {
     down: EventListener
   ) => {
     window.addEventListener("keydown", (e: KeyboardEvent) => {
-      console.log(e.keyCode);
       switch (e.keyCode) {
         case 37: // left
           left(e);

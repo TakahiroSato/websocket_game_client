@@ -19,8 +19,8 @@ export default class rect extends drawpoint {
   }
   public draw(degree?: number) {
     c2d.fillRect({
-      x: this.x,
-      y: this.y,
+      cx: this.x,
+      cy: this.y,
       w: this._width,
       h: this._height,
       color: this.color,

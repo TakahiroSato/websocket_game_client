@@ -1,1 +1,221 @@
-!function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)n.d(o,r,function(e){return t[e]}.bind(null,r));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=3)}([function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(1),r=new o.canvas2d("canvas2d");e.c2d=r;var i={addMouseDownEvent:function(t){var e;null===(e=document.getElementById("canvas2d"))||void 0===e||e.addEventListener("mousedown",t)},addMouseMoveEvent:function(t){var e;null===(e=document.getElementById("canvas2d"))||void 0===e||e.addEventListener("mousemove",t)},addMouseUpEvent:function(t){var e;null===(e=document.getElementById("canvas2d"))||void 0===e||e.addEventListener("mouseup",t)},addDirectionKeyDownEvent:function(t,e,n,o){window.addEventListener("keydown",(function(r){switch(console.log(r.keyCode),r.keyCode){case 37:t(r);break;case 38:e(r);break;case 39:n(r);break;case 40:o(r);break;default:throw new Error("Invalid keyCode")}r.preventDefault()}))}};e.event=i},function(t,e,n){"use strict";var o=this&&this.__importDefault||function(t){return t&&t.__esModule?t:{default:t}};Object.defineProperty(e,"__esModule",{value:!0});var r=o(n(4));e.vec2=r.default;var i=function(){function t(t){this.canvas=document.getElementById(t);var e=this.canvas.getContext("2d");if(null===e)throw new Error("can't get 2d context.");this.ctx=e}return Object.defineProperty(t.prototype,"width",{get:function(){return this.canvas.clientWidth},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"height",{get:function(){return this.canvas.clientHeight},enumerable:!0,configurable:!0}),t.prototype.rotate=function(t,e,n){var o=this,r=void 0!==n?n:{x:0,y:0,w:o.width,h:o.height},i=r.x,c=r.y,u=r.w,a=r.h;this.ctx.save(),this.ctx.beginPath(),this.ctx.translate(i+u/2,c+a/2),this.ctx.rotate(t*Math.PI/180),e(),this.ctx.restore()},t.prototype.fillBackground=function(t){this.ctx.fillStyle=t,this.ctx.fillRect(0,0,this.width,this.height)},t.prototype.fillRect=function(t){var e=this,n=t.x,o=t.y,r=t.w,i=t.h,c=t.color,u=t.degree;c&&(this.ctx.fillStyle=c),void 0===u?this.ctx.fillRect(n,o,r,i):this.rotate(u,(function(){e.ctx.fillRect(-r/2,-i/2,r,i)}),{x:n,y:o,w:r,h:i})},t.prototype.fillCircle=function(t){var e=t.cx,n=t.cy,o=t.r,r=t.color;this.ctx.beginPath(),this.ctx.arc(e,n,o,0,2*Math.PI,!1),void 0!==r&&(this.ctx.fillStyle=r),this.ctx.fill()},t.prototype.drawLines=function(t,e){var n,o,i,c,u=this,a=void 0!==e?e:{},s=a.lineWidth,f=a.color,l=a.degree,d=a.center,h=new r.default(null!=(o=null===(n=d)||void 0===n?void 0:n.x)?o:0,null!=(c=null===(i=d)||void 0===i?void 0:i.y)?c:0),p=t.map((function(t){return l?new r.default(-(h.x-t.x),-(h.y-t.y)):new r.default(t.x,t.y)}));void 0!==s&&(this.ctx.lineWidth=s);var y=function(){u.ctx.beginPath(),void 0!==f&&(u.ctx.strokeStyle=f),u.ctx.moveTo(p[0].x,p[0].y),p.shift(),p.map((function(t){u.ctx.lineTo(t.x,t.y)})),u.ctx.stroke()};void 0!==l?this.rotate(l,y,{x:h.x,y:h.y,w:0,h:0}):y()},t.prototype.drawText=function(t,e,n,o,r,i){void 0===o&&(o="#ffffff"),void 0===r&&(r=10),void 0===i&&(i="'ＭＳ　Ｐゴシック'"),this.ctx.font=r+"pt "+i,this.ctx.fillStyle=o,this.ctx.textAlign="left",this.ctx.textBaseline="top",this.ctx.fillText(t,e,n)},t.prototype.clear=function(){this.ctx.clearRect(0,0,this.width,this.height)},t}();e.canvas2d=i},function(t,e,n){"use strict";var o,r=this&&this.__extends||(o=function(t,e){return(o=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])})(t,e)},function(t,e){function n(){this.constructor=t}o(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)});Object.defineProperty(e,"__esModule",{value:!0});var i=function(t){function e(e,n){return t.call(this,e,n)||this}return r(e,t),e}(n(1).vec2);e.default=i},function(t,e,n){"use strict";var o=this&&this.__importDefault||function(t){return t&&t.__esModule?t:{default:t}};Object.defineProperty(e,"__esModule",{value:!0});var r=n(0),i=new(o(n(5)).default),c=new WebSocket("ws://localhost:3012");c.addEventListener("open",(function(t){console.log("connect")})),c.addEventListener("message",(function(t){console.log("Message from server ",t.data)}));var u=function(){r.c2d.clear(),i.draw(),requestAnimationFrame(u)};requestAnimationFrame(u)},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=function(){function t(t,e){this.x=t,this.y=e}return t.prototype.add=function(t,e){this.x+=t,this.y+=e},t.prototype.addv=function(t){this.x+=t.x,this.y+=t.y},t}();e.default=o},function(t,e,n){"use strict";var o=this&&this.__importDefault||function(t){return t&&t.__esModule?t:{default:t}};Object.defineProperty(e,"__esModule",{value:!0});var r=o(n(10)),i=function(){function t(){this._player=new r.default}return t.prototype.draw=function(){this._player.draw()},t}();e.default=i},function(t,e,n){"use strict";var o=this&&this.__importDefault||function(t){return t&&t.__esModule?t:{default:t}};Object.defineProperty(e,"__esModule",{value:!0});var r=o(n(7));e.circle=r.default;var i=o(n(8));e.rect=i.default;var c=o(n(9));e.line=c.default},function(t,e,n){"use strict";var o,r=this&&this.__extends||(o=function(t,e){return(o=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])})(t,e)},function(t,e){function n(){this.constructor=t}o(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)}),i=this&&this.__importDefault||function(t){return t&&t.__esModule?t:{default:t}};Object.defineProperty(e,"__esModule",{value:!0});var c=n(0),u=function(t){function e(e,n,o,r){var i=t.call(this,e,n)||this;return i._radius=o,i.color=r,i}return r(e,t),Object.defineProperty(e.prototype,"radius",{get:function(){return this._radius},enumerable:!0,configurable:!0}),e.prototype.draw=function(){c.c2d.fillCircle({cx:this.x,cy:this.y,r:this.radius,color:this.color})},e}(i(n(2)).default);e.default=u},function(t,e,n){"use strict";var o,r=this&&this.__extends||(o=function(t,e){return(o=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])})(t,e)},function(t,e){function n(){this.constructor=t}o(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)}),i=this&&this.__importDefault||function(t){return t&&t.__esModule?t:{default:t}};Object.defineProperty(e,"__esModule",{value:!0});var c=n(0),u=function(t){function e(e,n,o,r,i){var c=t.call(this,e,n)||this;return c._width=o,c._height=r,c.color=i,c}return r(e,t),Object.defineProperty(e.prototype,"width",{get:function(){return this._width},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"height",{get:function(){return this._height},enumerable:!0,configurable:!0}),e.prototype.draw=function(t){c.c2d.fillRect({x:this.x,y:this.y,w:this._width,h:this._height,color:this.color,degree:t})},e}(i(n(2)).default);e.default=u},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(0),r=function(){function t(t,e,n){this.points=t.map((function(t){return t})),this.width=e,this.color=n}return t.prototype.add=function(t){this.points.push(t)},t.prototype.draw=function(){o.c2d.drawLines(this.points,{lineWidth:this.width,color:this.color})},t}();e.default=r},function(t,e,n){"use strict";var o,r=this&&this.__extends||(o=function(t,e){return(o=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])})(t,e)},function(t,e){function n(){this.constructor=t}o(t,e),t.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)});Object.defineProperty(e,"__esModule",{value:!0});var i=n(6),c=n(0),u=5,a=function(t){function e(){var e=t.call(this,100,100,50,50,"#7777ff")||this;return e._degree=0,c.event.addDirectionKeyDownEvent((function(t){e._degree-=u}),(function(t){e.x+=Math.sin(Math.PI*e._degree/180)*u,e.y+=-Math.cos(Math.PI*e._degree/180)*u}),(function(t){e._degree+=u}),(function(t){e.x+=-Math.sin(Math.PI*e._degree/180)*u,e.y+=Math.cos(Math.PI*e._degree/180)*u})),e}return r(e,t),e.prototype.draw=function(){t.prototype.draw.call(this,this._degree)},e}(i.rect);e.default=a}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.ts");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./node_modules/@takahiro_sato/canvas2d/dist/canvas2d.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@takahiro_sato/canvas2d/dist/canvas2d.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar vec2_1 = __importDefault(__webpack_require__(/*! ./vec2 */ \"./node_modules/@takahiro_sato/canvas2d/dist/vec2.js\"));\r\nexports.vec2 = vec2_1.default;\r\nvar canvas2d = /** @class */ (function () {\r\n    function canvas2d(canvasId) {\r\n        this.canvas = document.getElementById(canvasId);\r\n        var ctx = this.canvas.getContext(\"2d\");\r\n        if (ctx !== null) {\r\n            this.ctx = ctx;\r\n        }\r\n        else {\r\n            throw new Error(\"can't get 2d context.\");\r\n        }\r\n    }\r\n    Object.defineProperty(canvas2d.prototype, \"width\", {\r\n        get: function () {\r\n            return this.canvas.clientWidth;\r\n        },\r\n        enumerable: true,\r\n        configurable: true\r\n    });\r\n    Object.defineProperty(canvas2d.prototype, \"height\", {\r\n        get: function () {\r\n            return this.canvas.clientHeight;\r\n        },\r\n        enumerable: true,\r\n        configurable: true\r\n    });\r\n    canvas2d.prototype.rotate = function (degree, callback, obj) {\r\n        var _this = this;\r\n        var _a = (function () {\r\n            if (obj !== undefined) {\r\n                return obj;\r\n            }\r\n            else {\r\n                return { x: 0, y: 0, w: _this.width, h: _this.height };\r\n            }\r\n        })(), x = _a.x, y = _a.y, w = _a.w, h = _a.h;\r\n        this.ctx.save();\r\n        this.ctx.beginPath();\r\n        this.ctx.translate(x + w / 2, y + h / 2);\r\n        this.ctx.rotate((degree * Math.PI) / 180);\r\n        callback();\r\n        this.ctx.restore();\r\n    };\r\n    canvas2d.prototype.fillBackground = function (color) {\r\n        this.ctx.fillStyle = color;\r\n        this.ctx.fillRect(0, 0, this.width, this.height);\r\n    };\r\n    canvas2d.prototype.fillRect = function (obj) {\r\n        var _this = this;\r\n        var cx = obj.cx, cy = obj.cy, w = obj.w, h = obj.h, color = obj.color, degree = obj.degree;\r\n        if (color) {\r\n            this.ctx.fillStyle = color;\r\n        }\r\n        if (degree === undefined) {\r\n            this.ctx.fillRect(cx - w / 2, cy - h / 2, w, h);\r\n        }\r\n        else {\r\n            this.rotate(degree, function () {\r\n                _this.ctx.fillRect(-w / 2, -h / 2, w, h);\r\n            }, {\r\n                x: cx - w / 2,\r\n                y: cy - h / 2,\r\n                w: w,\r\n                h: h\r\n            });\r\n        }\r\n    };\r\n    canvas2d.prototype.fillCircle = function (obj) {\r\n        var cx = obj.cx, cy = obj.cy, r = obj.r, color = obj.color;\r\n        this.ctx.beginPath();\r\n        this.ctx.arc(cx, cy, r, 0, 2 * Math.PI, false);\r\n        if (color !== undefined) {\r\n            this.ctx.fillStyle = color;\r\n        }\r\n        this.ctx.fill();\r\n    };\r\n    canvas2d.prototype.drawLines = function (points, obj) {\r\n        var _this = this;\r\n        var _a, _b, _c, _d;\r\n        var _e = (function () {\r\n            if (obj !== undefined) {\r\n                return obj;\r\n            }\r\n            else {\r\n                return {};\r\n            }\r\n        })(), lineWidth = _e.lineWidth, color = _e.color, degree = _e.degree, center = _e.center;\r\n        var _center = new vec2_1.default((_b = (_a = center) === null || _a === void 0 ? void 0 : _a.x, (_b !== null && _b !== void 0 ? _b : 0)), (_d = (_c = center) === null || _c === void 0 ? void 0 : _c.y, (_d !== null && _d !== void 0 ? _d : 0)));\r\n        var pos = points.map(function (p) {\r\n            if (degree) {\r\n                return new vec2_1.default(-(_center.x - p.x), -(_center.y - p.y));\r\n            }\r\n            else {\r\n                return new vec2_1.default(p.x, p.y);\r\n            }\r\n        });\r\n        if (lineWidth !== undefined) {\r\n            this.ctx.lineWidth = lineWidth;\r\n        }\r\n        var _draw = function () {\r\n            _this.ctx.beginPath();\r\n            if (color !== undefined) {\r\n                _this.ctx.strokeStyle = color;\r\n            }\r\n            _this.ctx.moveTo(pos[0].x, pos[0].y);\r\n            pos.shift();\r\n            pos.map(function (p) {\r\n                _this.ctx.lineTo(p.x, p.y);\r\n            });\r\n            _this.ctx.stroke();\r\n        };\r\n        if (degree !== undefined) {\r\n            this.rotate(degree, _draw, {\r\n                x: _center.x,\r\n                y: _center.y,\r\n                w: 0,\r\n                h: 0,\r\n            });\r\n        }\r\n        else {\r\n            _draw();\r\n        }\r\n    };\r\n    canvas2d.prototype.drawText = function (text, x, y, color, size, font) {\r\n        if (color === void 0) { color = \"#ffffff\"; }\r\n        if (size === void 0) { size = 10; }\r\n        if (font === void 0) { font = \"'ＭＳ　Ｐゴシック'\"; }\r\n        this.ctx.font = size + \"pt \" + font;\r\n        this.ctx.fillStyle = color;\r\n        this.ctx.textAlign = \"left\";\r\n        this.ctx.textBaseline = \"top\";\r\n        this.ctx.fillText(text, x, y);\r\n    };\r\n    canvas2d.prototype.clear = function () {\r\n        this.ctx.clearRect(0, 0, this.width, this.height);\r\n    };\r\n    return canvas2d;\r\n}());\r\nexports.canvas2d = canvas2d;\r\n\n\n//# sourceURL=webpack:///./node_modules/@takahiro_sato/canvas2d/dist/canvas2d.js?");
+
+/***/ }),
+
+/***/ "./node_modules/@takahiro_sato/canvas2d/dist/vec2.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@takahiro_sato/canvas2d/dist/vec2.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar vec2 = /** @class */ (function () {\r\n    function vec2(x, y) {\r\n        this.x = x;\r\n        this.y = y;\r\n    }\r\n    Object.defineProperty(vec2.prototype, \"length\", {\r\n        get: function () {\r\n            return Math.sqrt(this.x * this.x + this.y * this.y);\r\n        },\r\n        enumerable: true,\r\n        configurable: true\r\n    });\r\n    vec2.prototype.add = function (x, y) {\r\n        this.x += x;\r\n        this.y += y;\r\n        return this;\r\n    };\r\n    vec2.prototype.addv = function (v) {\r\n        this.x += v.x;\r\n        this.y += v.y;\r\n        return this;\r\n    };\r\n    vec2.prototype.rotate = function (degree) {\r\n        var _a;\r\n        var rad = (Math.PI * degree) / 180;\r\n        _a = [\r\n            this.x * Math.cos(rad) - this.y * Math.sin(rad),\r\n            this.x * Math.sin(rad) + this.y * Math.cos(rad)\r\n        ], this.x = _a[0], this.y = _a[1];\r\n        return this;\r\n    };\r\n    return vec2;\r\n}());\r\nexports.default = vec2;\r\n\n\n//# sourceURL=webpack:///./node_modules/@takahiro_sato/canvas2d/dist/vec2.js?");
+
+/***/ }),
+
+/***/ "./src/gameMain.ts":
+/*!*************************!*\
+  !*** ./src/gameMain.ts ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar player_1 = __importDefault(__webpack_require__(/*! ./player */ \"./src/player.ts\"));\r\nvar gameMain = /** @class */ (function () {\r\n    function gameMain() {\r\n        this._player = new player_1.default();\r\n    }\r\n    gameMain.prototype.draw = function () {\r\n        this._player.draw();\r\n    };\r\n    return gameMain;\r\n}());\r\nexports.default = gameMain;\r\n\n\n//# sourceURL=webpack:///./src/gameMain.ts?");
+
+/***/ }),
+
+/***/ "./src/index.ts":
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar c2d_1 = __webpack_require__(/*! ./util/c2d */ \"./src/util/c2d.ts\");\r\nvar gameMain_1 = __importDefault(__webpack_require__(/*! ./gameMain */ \"./src/gameMain.ts\"));\r\nvar game = new gameMain_1.default();\r\nvar socket = new WebSocket(\"ws://localhost:3012\");\r\nsocket.addEventListener(\"open\", function (e) {\r\n    console.log(\"connect\");\r\n});\r\nsocket.addEventListener(\"message\", function (e) {\r\n    console.log(\"Message from server \", e.data);\r\n});\r\nvar animation = function () {\r\n    c2d_1.c2d.clear();\r\n    game.draw();\r\n    requestAnimationFrame(animation);\r\n};\r\nrequestAnimationFrame(animation);\r\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+
+/***/ }),
+
+/***/ "./src/player.ts":
+/*!***********************!*\
+  !*** ./src/player.ts ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __extends = (this && this.__extends) || (function () {\r\n    var extendStatics = function (d, b) {\r\n        extendStatics = Object.setPrototypeOf ||\r\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\r\n            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\r\n        return extendStatics(d, b);\r\n    };\r\n    return function (d, b) {\r\n        extendStatics(d, b);\r\n        function __() { this.constructor = d; }\r\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\r\n    };\r\n})();\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar shape_1 = __webpack_require__(/*! ./shape */ \"./src/shape/index.ts\");\r\nvar c2d_1 = __webpack_require__(/*! ./util/c2d */ \"./src/util/c2d.ts\");\r\nvar canvas2d_1 = __webpack_require__(/*! @takahiro_sato/canvas2d */ \"./node_modules/@takahiro_sato/canvas2d/dist/canvas2d.js\");\r\nvar shape_2 = __webpack_require__(/*! ./shape */ \"./src/shape/index.ts\");\r\nvar speed = 5;\r\nvar player = /** @class */ (function (_super) {\r\n    __extends(player, _super);\r\n    function player() {\r\n        var _this = _super.call(this, 100, 100, 50, 50, \"#7777ff\") || this;\r\n        _this._head = new shape_1.rect(_this.x, _this.y - 40, 30, 30, \"#7777ff\");\r\n        _this._degree = 0;\r\n        c2d_1.event.addDirectionKeyDownEvent(function (e) {\r\n            _this._degree -= speed;\r\n        }, function (e) {\r\n            _this.addv(new canvas2d_1.vec2(0, -speed).rotate(_this._degree));\r\n        }, function (e) {\r\n            _this._degree += speed;\r\n        }, function (e) {\r\n            _this.addv(new canvas2d_1.vec2(0, speed).rotate(_this._degree));\r\n        });\r\n        return _this;\r\n    }\r\n    player.prototype._set_head = function () {\r\n        var v = new canvas2d_1.vec2(0, -(this.height + this._head.height) / 2).rotate(this._degree);\r\n        this._head.x = this.x + v.x;\r\n        this._head.y = this.y + v.y;\r\n    };\r\n    player.prototype.draw = function () {\r\n        this._set_head();\r\n        _super.prototype.draw.call(this, this._degree);\r\n        this._head.draw(this._degree);\r\n        new shape_2.circle(this.x, this.y, 5, \"#ff0000\").draw();\r\n        new shape_2.circle(this._head.x, this._head.y, 5, \"#ff0000\").draw();\r\n        new shape_2.line([new canvas2d_1.vec2(this.x, this.y), new canvas2d_1.vec2(this._head.x, this._head.y)], 2, \"#ff0000\").draw();\r\n    };\r\n    return player;\r\n}(shape_1.rect));\r\nexports.default = player;\r\n\n\n//# sourceURL=webpack:///./src/player.ts?");
+
+/***/ }),
+
+/***/ "./src/shape/circle.ts":
+/*!*****************************!*\
+  !*** ./src/shape/circle.ts ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __extends = (this && this.__extends) || (function () {\r\n    var extendStatics = function (d, b) {\r\n        extendStatics = Object.setPrototypeOf ||\r\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\r\n            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\r\n        return extendStatics(d, b);\r\n    };\r\n    return function (d, b) {\r\n        extendStatics(d, b);\r\n        function __() { this.constructor = d; }\r\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\r\n    };\r\n})();\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar c2d_1 = __webpack_require__(/*! ../util/c2d */ \"./src/util/c2d.ts\");\r\nvar drawpoint_1 = __importDefault(__webpack_require__(/*! ../super/drawpoint */ \"./src/super/drawpoint.ts\"));\r\nvar circle = /** @class */ (function (_super) {\r\n    __extends(circle, _super);\r\n    function circle(x, y, radius, color) {\r\n        var _this = _super.call(this, x, y) || this;\r\n        _this._radius = radius;\r\n        _this.color = color;\r\n        return _this;\r\n    }\r\n    Object.defineProperty(circle.prototype, \"radius\", {\r\n        get: function () {\r\n            return this._radius;\r\n        },\r\n        enumerable: true,\r\n        configurable: true\r\n    });\r\n    circle.prototype.draw = function () {\r\n        c2d_1.c2d.fillCircle({\r\n            cx: this.x,\r\n            cy: this.y,\r\n            r: this.radius,\r\n            color: this.color\r\n        });\r\n    };\r\n    return circle;\r\n}(drawpoint_1.default));\r\nexports.default = circle;\r\n\n\n//# sourceURL=webpack:///./src/shape/circle.ts?");
+
+/***/ }),
+
+/***/ "./src/shape/index.ts":
+/*!****************************!*\
+  !*** ./src/shape/index.ts ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar circle_1 = __importDefault(__webpack_require__(/*! ./circle */ \"./src/shape/circle.ts\"));\r\nexports.circle = circle_1.default;\r\nvar rect_1 = __importDefault(__webpack_require__(/*! ./rect */ \"./src/shape/rect.ts\"));\r\nexports.rect = rect_1.default;\r\nvar line_1 = __importDefault(__webpack_require__(/*! ./line */ \"./src/shape/line.ts\"));\r\nexports.line = line_1.default;\r\n\n\n//# sourceURL=webpack:///./src/shape/index.ts?");
+
+/***/ }),
+
+/***/ "./src/shape/line.ts":
+/*!***************************!*\
+  !*** ./src/shape/line.ts ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar c2d_1 = __webpack_require__(/*! ../util/c2d */ \"./src/util/c2d.ts\");\r\nvar line = /** @class */ (function () {\r\n    function line(points, width, color) {\r\n        this.points = points.map(function (p) { return p; });\r\n        this.width = width;\r\n        this.color = color;\r\n    }\r\n    line.prototype.add = function (v) {\r\n        this.points.push(v);\r\n    };\r\n    line.prototype.draw = function () {\r\n        c2d_1.c2d.drawLines(this.points, {\r\n            lineWidth: this.width,\r\n            color: this.color\r\n        });\r\n    };\r\n    return line;\r\n}());\r\nexports.default = line;\r\n\n\n//# sourceURL=webpack:///./src/shape/line.ts?");
+
+/***/ }),
+
+/***/ "./src/shape/rect.ts":
+/*!***************************!*\
+  !*** ./src/shape/rect.ts ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __extends = (this && this.__extends) || (function () {\r\n    var extendStatics = function (d, b) {\r\n        extendStatics = Object.setPrototypeOf ||\r\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\r\n            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\r\n        return extendStatics(d, b);\r\n    };\r\n    return function (d, b) {\r\n        extendStatics(d, b);\r\n        function __() { this.constructor = d; }\r\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\r\n    };\r\n})();\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar c2d_1 = __webpack_require__(/*! ../util/c2d */ \"./src/util/c2d.ts\");\r\nvar drawpoint_1 = __importDefault(__webpack_require__(/*! ../super/drawpoint */ \"./src/super/drawpoint.ts\"));\r\nvar rect = /** @class */ (function (_super) {\r\n    __extends(rect, _super);\r\n    function rect(x, y, w, h, color) {\r\n        var _this = _super.call(this, x, y) || this;\r\n        _this._width = w;\r\n        _this._height = h;\r\n        _this.color = color;\r\n        return _this;\r\n    }\r\n    Object.defineProperty(rect.prototype, \"width\", {\r\n        get: function () {\r\n            return this._width;\r\n        },\r\n        enumerable: true,\r\n        configurable: true\r\n    });\r\n    Object.defineProperty(rect.prototype, \"height\", {\r\n        get: function () {\r\n            return this._height;\r\n        },\r\n        enumerable: true,\r\n        configurable: true\r\n    });\r\n    rect.prototype.draw = function (degree) {\r\n        c2d_1.c2d.fillRect({\r\n            cx: this.x,\r\n            cy: this.y,\r\n            w: this._width,\r\n            h: this._height,\r\n            color: this.color,\r\n            degree: degree\r\n        });\r\n    };\r\n    return rect;\r\n}(drawpoint_1.default));\r\nexports.default = rect;\r\n\n\n//# sourceURL=webpack:///./src/shape/rect.ts?");
+
+/***/ }),
+
+/***/ "./src/super/drawpoint.ts":
+/*!********************************!*\
+  !*** ./src/super/drawpoint.ts ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __extends = (this && this.__extends) || (function () {\r\n    var extendStatics = function (d, b) {\r\n        extendStatics = Object.setPrototypeOf ||\r\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\r\n            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\r\n        return extendStatics(d, b);\r\n    };\r\n    return function (d, b) {\r\n        extendStatics(d, b);\r\n        function __() { this.constructor = d; }\r\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\r\n    };\r\n})();\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar canvas2d_1 = __webpack_require__(/*! @takahiro_sato/canvas2d */ \"./node_modules/@takahiro_sato/canvas2d/dist/canvas2d.js\");\r\nvar drawpoint = /** @class */ (function (_super) {\r\n    __extends(drawpoint, _super);\r\n    function drawpoint(x, y) {\r\n        return _super.call(this, x, y) || this;\r\n    }\r\n    return drawpoint;\r\n}(canvas2d_1.vec2));\r\nexports.default = drawpoint;\r\n\n\n//# sourceURL=webpack:///./src/super/drawpoint.ts?");
+
+/***/ }),
+
+/***/ "./src/util/c2d.ts":
+/*!*************************!*\
+  !*** ./src/util/c2d.ts ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar canvas2d_1 = __webpack_require__(/*! @takahiro_sato/canvas2d */ \"./node_modules/@takahiro_sato/canvas2d/dist/canvas2d.js\");\r\nvar canvasId = \"canvas2d\";\r\nvar c2d = new canvas2d_1.canvas2d(canvasId);\r\nexports.c2d = c2d;\r\nvar event = {\r\n    addMouseDownEvent: function (callback) {\r\n        var _a;\r\n        (_a = document.getElementById(canvasId)) === null || _a === void 0 ? void 0 : _a.addEventListener(\"mousedown\", callback);\r\n    },\r\n    addMouseMoveEvent: function (callback) {\r\n        var _a;\r\n        (_a = document.getElementById(canvasId)) === null || _a === void 0 ? void 0 : _a.addEventListener(\"mousemove\", callback);\r\n    },\r\n    addMouseUpEvent: function (callBack) {\r\n        var _a;\r\n        (_a = document.getElementById(canvasId)) === null || _a === void 0 ? void 0 : _a.addEventListener(\"mouseup\", callBack);\r\n    },\r\n    addDirectionKeyDownEvent: function (left, up, right, down) {\r\n        window.addEventListener(\"keydown\", function (e) {\r\n            switch (e.keyCode) {\r\n                case 37: // left\r\n                    left(e);\r\n                    break;\r\n                case 38: // up\r\n                    up(e);\r\n                    break;\r\n                case 39: // right\r\n                    right(e);\r\n                    break;\r\n                case 40: // down\r\n                    down(e);\r\n                    break;\r\n                default:\r\n                    throw new Error(\"Invalid keyCode\");\r\n            }\r\n            e.preventDefault();\r\n        });\r\n    }\r\n};\r\nexports.event = event;\r\n\n\n//# sourceURL=webpack:///./src/util/c2d.ts?");
+
+/***/ })
+
+/******/ });
