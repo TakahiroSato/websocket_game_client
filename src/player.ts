@@ -1,5 +1,4 @@
 import { rect } from "./shape";
-import { event } from "./util/c2d";
 import { vec2 } from "@takahiro_sato/canvas2d";
 
 import { circle, line } from "./shape";
@@ -9,24 +8,13 @@ const speed = 5;
 export default class player extends rect {
   private _degree: number;
   private _head: rect;
-  constructor() {
-    super(100, 100, 50, 50, "#7777ff");
-    this._head = new rect(this.x, this.y - 40, 30, 30, "#7777ff");
+  set degree(degree: number) {
+    this._degree = degree;
+  }
+  constructor(x: number, y: number, w: number, h: number, color: string) {
+    super(x, y, w, h, color);
+    this._head = new rect(this.x, this.y - 40, 30, 30, color);
     this._degree = 0;
-    event.addDirectionKeyDownEvent(
-      e => {
-        this._degree -= speed;
-      },
-      e => {
-        this.addv(new vec2(0, -speed).rotate(this._degree));
-      },
-      e => {
-        this._degree += speed;
-      },
-      e => {
-        this.addv(new vec2(0, speed).rotate(this._degree));
-      }
-    );
   }
   private _set_head() {
     const v = new vec2(0, -(this.height + this._head.height) / 2).rotate(
