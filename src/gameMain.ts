@@ -30,18 +30,21 @@ export default class gameMain implements draw {
           x: number;
           y: number;
           degree: number;
+          life: number;
         }) => {
           if (this._players[data.id]) {
             const p = this._players[data.id];
             p.x = data.x;
             p.y = data.y;
             p.degree = data.degree;
+            p.life = data.life;
           } else {
             this._players[data.id] = new player(
               data.x,
               data.y,
               50,
               50,
+              data.life,
               "#0000ff"
             );
             this._players[data.id].degree = data.degree;
