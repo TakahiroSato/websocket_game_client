@@ -1,11 +1,12 @@
 import { rect } from "./shape";
 import { vec2 } from "@takahiro_sato/canvas2d";
+import { draw } from "./interfaces";
 
 import { circle, line } from "./shape";
 
 const speed = 5;
 
-export default class player extends rect {
+export default class player extends rect implements draw {
   private _degree: number;
   private _head: rect;
   set degree(degree: number) {

@@ -1,4 +1,4 @@
-import {event} from "../util/c2d";
+import { event } from "../util";
 import drawpoint from "./drawpoint";
 
 export default class draggable<T extends drawpoint> {

@@ -1,22 +1,30 @@
 import { draw } from "./interfaces";
 import player from "./player";
-import { event } from "./util/c2d";
+import bullet from "./bullet";
+import { event, keyCode } from "./util";
 
 export default class gameMain implements draw {
   private _players: { [key: string]: player };
+  private _socket: WebSocket;
   constructor() {
-    const socket = new WebSocket("ws://localhost:3012");
-    socket.addEventListener("open", (e: Event) => {
+    this._socket = new WebSocket("ws://localhost:3012");
+    this._socket.addEventListener("open", (e: Event) => {
       console.log("connect");
     });
-    socket.addEventListener("message", (e: MessageEvent) => {
-      const list = JSON.parse(e.data).list;
+    this._socket.addEventListener("message", (e: MessageEvent) => {
+      const _data = JSON.parse(e.data);
+      const _users = _data.users;
+      const _bullets = _data.bullets;
+      bullet._bullets = [];
+      _bullets.map((b: {x: number, y: number}) => {
+        bullet._bullets.push(new bullet(b.x, b.y, 5, 0, 0, "#ff0000"))
+      });
       for (const key of Object.keys(this._players)) {
-        if (!list.some((d: { id: string; }) => d.id === key)) {
+        if (!_users.some((d: { id: string }) => d.id === key)) {
           delete this._players[key];
         }
       }
-      list.map(
+      _users.map(
         (data: {
           id: string | number;
           x: number;
@@ -42,52 +50,44 @@ export default class gameMain implements draw {
       );
     });
     this._players = {};
-    event.addDirectionKeyDownEvent(
-      e => {
-        socket.send(
-          JSON.stringify({
-            left: 1,
-            up: 0,
-            right: 0,
-            down: 0
-          })
-        );
-      },
-      e => {
-        socket.send(
-          JSON.stringify({
-            left: 0,
-            up: 1,
-            right: 0,
-            down: 0
-          })
-        );
-      },
-      e => {
-        socket.send(
-          JSON.stringify({
-            left: 0,
-            up: 0,
-            right: 1,
-            down: 0
-          })
-        );
-      },
-      e => {
-        socket.send(
-          JSON.stringify({
-            left: 0,
-            up: 0,
-            right: 0,
-            down: 1
-          })
-        );
+    this._setKeyDownListener();
+  }
+  private _setKeyDownListener() {
+    event.keyDownEventListeners.push({
+      key: keyCode.left,
+      listener: e => {
+        this._socket.send(JSON.stringify({ left: 1 }));
       }
-    );
+    });
+    event.keyDownEventListeners.push({
+      key: keyCode.up,
+      listener: e => {
+        this._socket.send(JSON.stringify({ up: 1 }));
+      }
+    });
+    event.keyDownEventListeners.push({
+      key: keyCode.right,
+      listener: e => {
+        this._socket.send(JSON.stringify({ right: 1 }));
+      }
+    });
+    event.keyDownEventListeners.push({
+      key: keyCode.down,
+      listener: e => {
+        this._socket.send(JSON.stringify({ down: 1 }));
+      }
+    });
+    event.keyDownEventListeners.push({
+      key: keyCode.space,
+      listener: e => {
+        this._socket.send(JSON.stringify({ shot: 1 }));
+      }
+    });
   }
   public draw() {
     for (const key of Object.keys(this._players)) {
       this._players[key].draw();
     }
+    bullet.draw();
   }
 }
