@@ -31,6 +31,7 @@ export default class gameMain implements draw {
           y: number;
           degree: number;
           life: number;
+          color: string;
         }) => {
           if (this._players[data.id]) {
             const p = this._players[data.id];
@@ -45,7 +46,7 @@ export default class gameMain implements draw {
               50,
               50,
               data.life,
-              "#0000ff"
+              data.color,
             );
             this._players[data.id].degree = data.degree;
           }
