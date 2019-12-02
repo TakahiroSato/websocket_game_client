@@ -7,7 +7,7 @@ export default class gameMain implements draw {
   private _players: { [key: string]: player };
   private _socket: WebSocket;
   constructor() {
-    this._socket = new WebSocket("ws://localhost:3012");
+    this._socket = new WebSocket(`ws://${process.env.WS_HOST}:${process.env.WS_PORT}`);
     this._socket.addEventListener("open", (e: Event) => {
       console.log("connect");
     });
